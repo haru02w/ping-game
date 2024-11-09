@@ -1,28 +1,40 @@
 #pragma once
+#include "Entities.hpp"
+#include <SDL.h>
+#include <SDL_rect.h>
+#include <memory>
+#include <optional>
+#include <vector>
 
-#include <SDL2/SDL.h>
 class Game {
 public:
-    Game();
+    static std::optional<std::unique_ptr<Game>> create(const char *title);
+
+    void run();
+
     Game(Game &&) = default;
-    Game(const Game &) = default;
     Game &operator=(Game &&) = default;
-    Game &operator=(const Game &) = default;
+    Game(const Game &) = delete;
+    Game &operator=(const Game &) = delete;
     ~Game();
 
-    void init(const char *title, int xpos, int ypos, int width, int height,
-        bool fullscreen);
-    void handleEvents();
-    void update();
-    void render();
-    void clean();
-
-    bool running() { return isRunning; };
+    enum {
+        BALL_0,
+        PADDLE_0,
+    };
 
 private:
-    int cnt = 0;
+    Game() = default;
+    void handleInput();
+    void update();
+    void render();
 
-    bool isRunning;
-    SDL_Window *window;
-    SDL_Renderer *renderer;
+    // Entities
+    std::vector<std::unique_ptr<Entity>> mEntities;
+    // Global
+    SDL_Window *mWindow;
+    SDL_Renderer *mRenderer;
+
+    // end
+    bool mFinish = false;
 };
