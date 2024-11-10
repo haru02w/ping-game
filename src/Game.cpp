@@ -18,7 +18,7 @@ using std::make_optional;
 std::optional<std::unique_ptr<Game>> Game::create(const char *title)
 {
     std::unique_ptr<Game> game(new Game);
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
         return std::nullopt;
 
     SDL_DisplayMode dm;
