@@ -27,8 +27,7 @@ std::optional<std::unique_ptr<Game>> Game::create(const char *title)
         return std::nullopt;
 
     game->mWindow = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED, dm.w / 2, dm.h / 2,
-        SDL_WINDOW_FULLSCREEN_DESKTOP);
+        SDL_WINDOWPOS_CENTERED, dm.w / 2, dm.h / 2, SDL_WINDOW_SHOWN);
 
     if (game->mWindow == nullptr)
         return std::nullopt;
